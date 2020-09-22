@@ -1,27 +1,32 @@
 package main
 
 type PointByClass struct {
-	X float64
-	Y float64
+	x float64
+	y float64
 }
-
-type Vector []float64
 
 //使用方法作為建構函數
 func NewPoint(x float64, y float64) *PointByClass {
 	p := new(PointByClass)
-	p.X = x
-	p.Y = y
+	p.x = x
+	p.y = y
 
 	return p
 }
 
-func NewVector(args ...float64) Vector {
-	return args
+//寫入需要用pointer
+func (p *PointByClass) GetX() float64 {
+	return p.x
 }
 
-func WithSize(s int) Vector {
-	v := make([]float64, s)
+func (p *PointByClass) GetY() float64 {
+	return p.y
+}
 
-	return v
+func (p *PointByClass) SetX(x float64) {
+	p.x = x
+}
+
+func (p *PointByClass) SetY(y float64) {
+	p.y = y
 }
