@@ -22,8 +22,18 @@ func loop2() {
 			break
 		} else if 3 == i {
 			continue
+		} else if 2 == i {
+			goto gotoInfo
 		} else {
 			fmt.Println(i)
 		}
 	}
+
+	//標籤
+gotoInfo:
+	gotoInfo()
+}
+
+func gotoInfo() {
+	fmt.Println("goto")
 }
