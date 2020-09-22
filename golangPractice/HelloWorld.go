@@ -4,12 +4,13 @@ package main
 //import 引入套件
 import "fmt"
 
-//main 主方法
-func main() {
-	sayHello()
-}
-
 //方法
 func sayHello() {
-	fmt.Printf("Hello world")
+	var msg string
+	msg = "Hello World"
+
+	name := "Jeff"
+
+	fmt.Println(msg)
+	fmt.Println(name)
 }

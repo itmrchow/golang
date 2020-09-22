@@ -4,16 +4,8 @@ import "fmt"
 
 func main() {
 	getCircleArea()
-}
 
-func sayHello() {
-	var msg string
-	msg = "Hello World"
-
-	name := "Jeff"
-
-	fmt.Println(msg)
-	fmt.Println(name)
+	sayHello()
 }
 
 func getCircleArea() {
