@@ -7,36 +7,14 @@ import (
 )
 
 func operator() {
-	/* 3 is 0011
-	   5 is 0101 */
+	assert(4 == 4, "4 should be equal to 4")
+	assert(4 != 3, "4 should not be equal to 3")
 
-	/*  0011
-	 &) 0101
-	---------
-	    0001  */
-	assert((3&5) == 1, "3 & 5 should be 1")
+	assert(4 > 3, "4 should be greater than 3")
+	assert(4 >= 3, "4 should be greater than or equal to 3")
 
-	/*  0011
-	 |) 0101
-	---------
-		0111  */
-	assert((3|5) == 7, "3 | 5 should be 7")
-
-	/*  0011
-	 ^) 0101
-	---------
-		0110  */
-	assert((3^5) == 6, "3 ^ 5 should be 6")
-
-	/* <<) 0000 0101
-	---------------
-		   0000 1010  */
-	assert((5<<1) == 10, "5 << 1 should be 10")
-
-	/* >>) 0000 0101
-	---------------
-		   0000 0010  */
-	assert((5>>1) == 2, "5 >> 1 should be 2")
+	assert(4 < 5, "4 should be less than 5")
+	assert(4 <= 5, "4 should be less than or equal to 5")
 }
 
 //檢查函式
