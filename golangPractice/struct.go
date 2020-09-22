@@ -2,22 +2,31 @@ package main
 
 import "fmt"
 
-//type 宣告新型態
-type Point struct {
-	x float64
-	y float64
+//Gender 性別
+type Gender int
+
+//iota 常數計數器
+const (
+	Male Gender = iota
+	Female
+)
+
+type Person struct {
+	name   string
+	gender Gender
+	age    uint
 }
 
 func structTest() {
-	p := Point{x: 3.0, y: 4.0}
-	agent := struct {
-		name string
-		age  int
-	}{name: "Jeff", age: 27}
+	me := Person{gender: Male, age: 27, name: "Jeff"}
 
-	fmt.Println(p.x)
-	fmt.Println(p.y)
-	fmt.Println(agent.name)
-	fmt.Println(agent.age)
+	fmt.Println(me.name)
+	fmt.Println(me.age)
+
+	if me.gender == Male {
+		fmt.Println("Male")
+	} else {
+		fmt.Println("Female")
+	}
 
 }
