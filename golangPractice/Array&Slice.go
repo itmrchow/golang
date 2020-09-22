@@ -47,6 +47,9 @@ func sliceTest() {
 	slice[1] = "John"
 
 	slice = append(slice, "James", "Lily")
+	//移除用忽略的方式
+	slice = append(slice[0:2], slice[4:len(slice)]...)
+
 	for i, e := range slice {
 		fmt.Println(fmt.Sprintf("%d:%s", i+1, e))
 	}
