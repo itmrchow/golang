@@ -60,3 +60,16 @@ func matrix() {
 		fmt.Println(e)
 	}
 }
+
+func makeTest() {
+	slice := make([]int, 5)
+
+	for i := 0; i < len(slice); i++ {
+		n := i + 1
+		slice[i] = n * n
+	}
+
+	for _, v := range slice {
+		fmt.Println(v)
+	}
+}
