@@ -1,16 +1,9 @@
 package main
 
+import "fmt"
+
 func main() {
-	animals := make([]IAnimal, 0)
+	v := NewVector(1, 2, 3, 4, 5)
 
-	duck := New(Duck)
-	dog := New(Dog)
-	tiger := New(Tiger)
-
-	animals = append(animals, duck, dog, tiger)
-
-	for _, a := range animals {
-		a.Speak()
-	}
-
+	fmt.Println(v)
 }

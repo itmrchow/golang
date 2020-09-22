@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type IAnimal interface {
 	Speak()
@@ -57,4 +60,26 @@ func New(t AnimalType) IAnimal {
 		//恐慌中斷
 		panic("Unknown animal type")
 	}
+}
+
+type Vector []float64
+
+func NewVector(args ...float64) Vector {
+	return args
+}
+
+func (v Vector) String() string {
+	out := "("
+
+	for i, e := range v {
+		out += strconv.FormatFloat(e, 'f', -2, 64)
+
+		if i < len(v)-1 {
+			out += ", "
+		}
+	}
+
+	out += ")"
+
+	return out
 }
