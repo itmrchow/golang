@@ -16,3 +16,13 @@ func apply(arr []float64, callback func(float64) float64) []float64 {
 
 	return out
 }
+
+//閉包
+func num() func() int {
+	n := -1
+
+	return func() int {
+		n += 1
+		return n
+	}
+}
