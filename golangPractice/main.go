@@ -1,31 +1,16 @@
 package main
 
-import (
-	"fmt"
-	"log"
-)
-
 func main() {
-	p := NewPoint(0, 0)
-	p2 := NewPoint(3, 5)
+	animals := make([]IAnimal, 0)
 
-	if !(p.x == 0) {
-		log.Fatal("Wrong value")
+	duck := New(Duck)
+	dog := New(Dog)
+	tiger := New(Tiger)
+
+	animals = append(animals, duck, dog, tiger)
+
+	for _, a := range animals {
+		a.Speak()
 	}
-
-	if !(p.y == 0) {
-		log.Fatal("Wrong value")
-	}
-
-	p.SetX(3)
-	p.SetY(4)
-
-	fmt.Println(p.GetX(), p.GetY())
-
-	fmt.Println(p.area())
-	fmt.Println(Dist(p, p2))
-
-	p3d := NewPoint3D(3, 4, 5)
-	fmt.Println(p3d)
 
 }
