@@ -25,4 +25,7 @@ func main() {
 	fmt.Println(p.area())
 	fmt.Println(Dist(p, p2))
 
+	p3d := NewPoint3D(3, 4, 5)
+	fmt.Println(p3d)
+
 }

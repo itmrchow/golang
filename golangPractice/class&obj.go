@@ -45,15 +45,19 @@ func (p *PointByClass) SetY(y float64) {
 }
 
 type Point3D struct {
-	PointByClass
+	*PointByClass
 	z float64
 }
 
-func NewPoint3D(x float64, y float64, z float64) Point3D {
+func NewPoint3D(x float64, y float64, z float64) *Point3D {
 	p := new(Point3D)
-	p.SetX(x)
-	p.SetY(y)
+	p.PointByClass = NewPoint(x, y)
+
+	// p.SetX(x)
+	// p.SetY(y)
 	p.SetZ(z)
+
+	return p
 }
 
 func (p *Point3D) SetZ(z float64) {
