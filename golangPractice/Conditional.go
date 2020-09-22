@@ -21,3 +21,21 @@ func confitional() {
 		fmt.Printf("%d is odd\n", n)
 	}
 }
+
+func confitional2() {
+	now := time.Now()
+
+	weekOfDay := now.Weekday()
+
+	switch weekOfDay {
+	case 6, 7:
+		fmt.Println("Weekend")
+	case 5:
+		fmt.Println("Thank God. It's Friday")
+	case 3:
+		fmt.Println("Hump day")
+	default:
+		fmt.Println("Week")
+	}
+
+}
