@@ -7,14 +7,18 @@ import (
 )
 
 func operator() {
-	assert(4 == 4, "4 should be equal to 4")
-	assert(4 != 3, "4 should not be equal to 3")
+	assert((true && true) == true, "Wrong logic")
+	assert((true && false) == false, "Wrong logic")
+	assert((false && true) == false, "Wrong logic")
+	assert((false && false) == false, "Wrong logic")
 
-	assert(4 > 3, "4 should be greater than 3")
-	assert(4 >= 3, "4 should be greater than or equal to 3")
+	assert((true || true) == true, "Wrong logic")
+	assert((true || false) == true, "Wrong logic")
+	assert((false || true) == true, "Wrong logic")
+	assert((false || false) == false, "Wrong logic")
 
-	assert(4 < 5, "4 should be less than 5")
-	assert(4 <= 5, "4 should be less than or equal to 5")
+	assert((!true) == false, "Wrong logic")
+	assert((!false) == true, "Wrong logic")
 }
 
 //檢查函式
