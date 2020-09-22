@@ -2,21 +2,41 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"runtime"
 )
 
 func operator() {
-	assert(4+3 == 7, "4 + 3 should be 7")
-	assert(4-3 == 1, "4 - 3 should be 1")
-	assert(4*3 == 12, "4 * 3 should be 12")
+	/* 3 is 0011
+	   5 is 0101 */
 
-	assert(4/3 == 1, "4 / 3 should be 1")
-	//Abs 返回絕對值
-	assert(math.Abs(4.0/3.0-1.333333) < 0.00001, "4.0 / 3.0 should be 1.333333")
+	/*  0011
+	 &) 0101
+	---------
+	    0001  */
+	assert((3&5) == 1, "3 & 5 should be 1")
 
-	assert(4%3 == 1, "4 % 3 should be 1")
+	/*  0011
+	 |) 0101
+	---------
+		0111  */
+	assert((3|5) == 7, "3 | 5 should be 7")
+
+	/*  0011
+	 ^) 0101
+	---------
+		0110  */
+	assert((3^5) == 6, "3 ^ 5 should be 6")
+
+	/* <<) 0000 0101
+	---------------
+		   0000 1010  */
+	assert((5<<1) == 10, "5 << 1 should be 10")
+
+	/* >>) 0000 0101
+	---------------
+		   0000 0010  */
+	assert((5>>1) == 2, "5 >> 1 should be 2")
 }
 
 //檢查函式
