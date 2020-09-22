@@ -1,5 +1,5 @@
 package main
 
 func main() {
-	pointerTest3()
+	hello("Jeff")
 }
