@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-//條件式迴圈
+//條件式loop
 func loop() {
 	i := 1
 
@@ -12,5 +12,12 @@ func loop() {
 		fmt.Println(i)
 
 		i++
+	}
+}
+
+//計數器loop
+func loop2() {
+	for i := 1; i < 10; i++ {
+		fmt.Println(i)
 	}
 }
