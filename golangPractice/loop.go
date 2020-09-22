@@ -20,8 +20,10 @@ func loop2() {
 	for i := 1; i < 10; i++ {
 		if 5 < i {
 			break
+		} else if 3 == i {
+			continue
+		} else {
+			fmt.Println(i)
 		}
-		fmt.Println(i)
-
 	}
 }
