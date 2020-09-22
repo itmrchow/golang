@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 type PointByClass struct {
 	x float64
 	y float64
@@ -12,6 +14,17 @@ func NewPoint(x float64, y float64) *PointByClass {
 	p.y = y
 
 	return p
+}
+
+func Dist(p1 *PointByClass, p2 *PointByClass) float64 {
+	xSqr := math.Pow(p1.GetX()-p2.GetX(), 2)
+	ySqr := math.Pow(p1.GetY()-p2.GetY(), 2)
+
+	return math.Sqrt(xSqr + ySqr) /* 32 */
+}
+
+func (p *PointByClass) area() float64 {
+	return (p.x * p.y) / 2
 }
 
 //寫入需要用pointer
