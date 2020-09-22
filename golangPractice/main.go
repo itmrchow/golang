@@ -1,5 +1,5 @@
 package main
 
 func main() {
-	pointerTest2()
+	pointerTest3()
 }

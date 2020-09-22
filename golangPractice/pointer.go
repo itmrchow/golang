@@ -5,6 +5,11 @@ import (
 	"log"
 )
 
+type Point struct {
+	x float64
+	y float64
+}
+
 //靜態配置
 func pointerTest() {
 	n := 2
@@ -34,4 +39,14 @@ func pointerTest2() {
 		log.Fatal("Wrong value")
 	}
 
+}
+
+//動態配置struct記憶體位址
+func pointerTest3() {
+	p := new(Point)
+
+	p.x = 3.0
+	p.y = 4.0
+
+	fmt.Println(fmt.Sprintf("(%.2f, %.2f)", p.x, p.y))
 }
