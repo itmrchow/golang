@@ -45,7 +45,9 @@ func sliceTest() {
 	//slice儲存的是array的位子
 	//修改slice會連同array的值一起修改
 	slice[1] = "John"
-	for i, e := range lang {
+
+	slice = append(slice, "James", "Lily")
+	for i, e := range slice {
 		fmt.Println(fmt.Sprintf("%d:%s", i+1, e))
 	}
 }
