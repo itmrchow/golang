@@ -11,3 +11,13 @@ func filter(arr []int, predicate func(int) bool) []int {
 	}
 	return out
 }
+
+//map 讓每個元素經過函式轉換
+func mapply(arr []int, mapper func(int) int) []int {
+	//out := make([]int, 0)
+
+	for i, v := range arr {
+		arr[i] = mapper(v)
+	}
+	return arr
+}
