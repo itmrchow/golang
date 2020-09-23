@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"sync"
@@ -44,4 +45,19 @@ func goroutineTest() {
 	//等goroutines
 	wg.Wait()
 
+}
+
+func channelTest() {
+	//建立通道
+	message := make(chan string)
+
+	// init a goroutine
+	go func() {
+		//寫入通道
+		message <- "Hello from channel"
+	}()
+
+	//讀出通道
+	msg := <-message
+	fmt.Println(msg)
 }
