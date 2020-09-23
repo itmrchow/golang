@@ -85,3 +85,13 @@ func bufferedChannelTest() {
 	wg.Wait()
 
 }
+
+//指定channel方向
+func ping(pings chan<- string, msg string) {
+	pings <- msg
+}
+
+func pong(pings <-chan string, pongs chan<- string) {
+	msg := <-pings
+	pongs <- msg
+}
