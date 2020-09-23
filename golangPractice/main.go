@@ -12,7 +12,12 @@ func main() {
 		return n * 5
 	})
 
+	reduceOut := reduce(arr, func(n1 int, n2 int) int {
+		return n1 + n2
+	})
+
 	fmt.Printf("filterOut:%v\n", filterOut)
 	fmt.Printf("mapOut:%v\n", mapOut)
+	fmt.Printf("reduceOut:%v\n", reduceOut)
 
 }

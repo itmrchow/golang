@@ -14,10 +14,28 @@ func filter(arr []int, predicate func(int) bool) []int {
 
 //map 讓每個元素經過函式轉換
 func mapply(arr []int, mapper func(int) int) []int {
-	//out := make([]int, 0)
+	out := make([]int, len(arr))
 
-	for i, v := range arr {
-		arr[i] = mapper(v)
+	for i, v := range out {
+		out[i] = mapper(v)
 	}
-	return arr
+	return out
 }
+
+//reduce 處理後傳入下一輪
+func reduce(arr []int, reducer func(int, int) int) int {
+	if len(arr) == 0 {
+		return 0
+	} else if len(arr) == 1 {
+		return arr[0]
+	}
+
+	n := arr[0]
+	for i := 1; i < len(arr); i++ {
+		n = reducer(n, arr[i])
+	}
+
+	return n
+}
+
+//
