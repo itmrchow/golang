@@ -5,8 +5,14 @@ import (
 )
 
 func errorHandling() {
-	panic("Some error")
+	defer func() {
+		err := recover()
+		if err != nil {
+			fmt.Println("Recover from panic")
+		}
+	}()
 
-	// It didn't occur.
+	panic("some error")
+
 	fmt.Println("More message")
 }
