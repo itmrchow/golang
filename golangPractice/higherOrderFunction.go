@@ -38,4 +38,18 @@ func reduce(arr []int, reducer func(int, int) int) int {
 	return n
 }
 
-//
+//parition 依規則分類
+func partition(arr []int, predicate func(int) bool) ([]int, []int) {
+	out1 := make([]int, 0)
+	out2 := make([]int, 0)
+
+	for _, v := range arr {
+		if predicate(v) {
+			out1 = append(out1, v)
+		} else {
+			out2 = append(out2, v)
+		}
+	}
+
+	return out1, out2
+}

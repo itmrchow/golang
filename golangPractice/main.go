@@ -16,8 +16,14 @@ func main() {
 		return n1 + n2
 	})
 
+	even, odd := partition(arr, func(n int) bool {
+		return n%2 == 0
+	})
+
 	fmt.Printf("filterOut:%v\n", filterOut)
 	fmt.Printf("mapOut:%v\n", mapOut)
 	fmt.Printf("reduceOut:%v\n", reduceOut)
+	fmt.Printf("even:%v\n", even)
+	fmt.Printf("odd:%v\n", odd)
 
 }
