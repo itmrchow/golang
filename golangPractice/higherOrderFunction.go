@@ -53,3 +53,27 @@ func partition(arr []int, predicate func(int) bool) ([]int, []int) {
 
 	return out1, out2
 }
+
+//fold 將等長的串列組合成tuple
+type Tuple1 struct {
+	First  int
+	Second int
+}
+
+func zip(mAry []int, nAry []int) func() (Tuple1, bool) {
+	if len(mAry) != len(nAry) {
+		panic("Unequal list length")
+	}
+
+	i := -1
+
+	return func() (Tuple1, bool) {
+		i++
+
+		if i < len(mAry) {
+			return Tuple1{First: mAry[i], Second: nAry[i]}, true
+		}
+		return Tuple1{First: 0, Second: 0}, false
+
+	}
+}

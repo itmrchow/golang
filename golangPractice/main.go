@@ -20,10 +20,22 @@ func main() {
 		return n%2 == 0
 	})
 
+	m := []int{1, 2, 3}
+	n := []int{4, 5, 6}
+
+	iter := zip(m, n)
+
 	fmt.Printf("filterOut:%v\n", filterOut)
 	fmt.Printf("mapOut:%v\n", mapOut)
 	fmt.Printf("reduceOut:%v\n", reduceOut)
 	fmt.Printf("even:%v\n", even)
 	fmt.Printf("odd:%v\n", odd)
+	for {
+		out, ok := iter()
+		if !ok {
+			break
+		}
+		fmt.Println(out)
+	}
 
 }
