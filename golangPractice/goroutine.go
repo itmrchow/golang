@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 func goroutineTest() {
@@ -94,4 +95,21 @@ func ping(pings chan<- string, msg string) {
 func pong(pings <-chan string, pongs chan<- string) {
 	msg := <-pings
 	pongs <- msg
+}
+
+var m *sync.Mutex
+
+func mutexTest() {
+	m = new(sync.Mutex)
+	go read(1)
+	go read(2)
+	time.Sleep(time.Second) // 让goroutine有足够的时间执行完
+}
+
+func read(i int) {
+	fmt.Println(i, "begin lock")
+	m.Lock()
+	fmt.Println(i, "in lock")
+	m.Unlock()
+	fmt.Println(i, "unlock")
 }
