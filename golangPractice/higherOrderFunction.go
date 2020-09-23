@@ -77,3 +77,23 @@ func zip(mAry []int, nAry []int) func() (Tuple1, bool) {
 
 	}
 }
+
+//列舉
+type Tuple2 struct {
+	Index   int
+	Element int
+}
+
+func enumerate(arr []int) func() (Tuple2, bool) {
+	i := -1
+
+	return func() (Tuple2, bool) {
+		i++
+		if i < len(arr) {
+			return Tuple2{Index: i, Element: arr[i]}, true
+		}
+		return Tuple2{Index: i, Element: 0}, false
+
+	}
+
+}

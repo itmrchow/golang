@@ -25,13 +25,25 @@ func main() {
 
 	iter := zip(m, n)
 
+	iter2 := enumerate(m)
+
 	fmt.Printf("filterOut:%v\n", filterOut)
 	fmt.Printf("mapOut:%v\n", mapOut)
 	fmt.Printf("reduceOut:%v\n", reduceOut)
 	fmt.Printf("even:%v\n", even)
 	fmt.Printf("odd:%v\n", odd)
+	fmt.Println("fold:")
 	for {
 		out, ok := iter()
+		if !ok {
+			break
+		}
+		fmt.Println(out)
+	}
+
+	fmt.Println("enumerate:")
+	for {
+		out, ok := iter2()
 		if !ok {
 			break
 		}
