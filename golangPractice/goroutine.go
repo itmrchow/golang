@@ -47,6 +47,7 @@ func goroutineTest() {
 
 }
 
+// channel是同步的，要等到資料到齊
 func channelTest() {
 	//建立通道
 	message := make(chan string)
@@ -60,4 +61,27 @@ func channelTest() {
 	//讀出通道
 	msg := <-message
 	fmt.Println(msg)
+}
+
+// buffer channel是非同步的，不用等到資料到齊
+func bufferedChannelTest() {
+	logger := log.New(os.Stdout, "", 0)
+
+	var wg sync.WaitGroup
+
+	// Make a buffered channel.
+	ch := make(chan int, 10)
+
+	for i := 0; i < 10; i++ {
+		ch <- i
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			logger.Println("Print from goroutine", <-ch)
+		}()
+	}
+
+	logger.Println("Print from main")
+	wg.Wait()
+
 }
