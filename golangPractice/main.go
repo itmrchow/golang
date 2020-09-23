@@ -1,19 +1,48 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	pings := make(chan string, 2)
-	pongs := make(chan string, 2)
+	data := []string{
+		"The yellow fish swims slowly in the water",
+		"The brown dog barks loudly after a drink from its water bowl",
+		"The dark bird of prey lands on a small tree after hunting for fish",
+	}
 
-	ping(pings, "passed message")
-	ping(pings, "passed message2")
-	pong(pings, pongs)
-	pong(pings, pongs)
-	fmt.Println(<-pongs)
-	fmt.Println(<-pongs)
+	histogram := make(map[string]int)
+	wordsCh := make(chan string)
 
-	close(pongs)
-	close(pongs)
+	go func() {
+		defer close(wordsCh)
+
+		for _, line := range data {
+			//取值出來切割
+			words := strings.Split(line, " ")
+
+			for _, word := range words {
+				//轉小寫
+				word = strings.ToLower(word)
+				//放入chennel
+				wordsCh <- word
+			}
+		}
+	}()
+
+	<-wordsCh
+
+	for {
+		word, opened := <-wordsCh
+		if !opened {
+			break
+		}
+		histogram[word]++
+	}
+
+	for k, v := range histogram {
+		fmt.Println(fmt.Sprintf("%s\t(%d)", k, v))
+	}
 
 }
