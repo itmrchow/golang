@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
+	negronilogrus "github.com/meatballhat/negroni-logrus"
+
 	"github.com/julienschmidt/httprouter"
+	log "github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
 )
 
@@ -66,6 +68,7 @@ func routeTest2() {
 func routeTest3() {
 	host := "127.0.0.1"
 	port := "8080"
+	output := ""
 
 	args := os.Args[1:]
 
@@ -77,6 +80,9 @@ func routeTest3() {
 			args = args[2:]
 		} else if args[0] == "-p" || args[0] == "--port" {
 			port = args[1]
+			args = args[2:]
+		} else if args[0] == "-l" || args[0] == "--log" {
+			output = args[1]
 			args = args[2:]
 		} else {
 			log.Fatalln(fmt.Sprintf("Unknown parameter: %s", args[0]))
@@ -90,8 +96,25 @@ func routeTest3() {
 	// Custom 500 page
 	mux.PanicHandler = errorHandler
 
+	//create a new logger
+	log := log.New()
+
+	var f *os.File
+	var err error
+
+	if output != "" {
+		f, err = os.Create(output)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer f.Close()
+
+		log.SetOutput(f)
+	}
+
 	//set the logger of the server
-	negroni := negroni.Classic()
+	negroni := negroni.New()
+	negroni.Use(negronilogrus.NewMiddlewareFromLogger(log, "web"))
 	negroni.UseHandler(mux)
 
 	//set the parameters for a http server
