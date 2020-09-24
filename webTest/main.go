@@ -11,6 +11,8 @@ func main() {
 	routeTest2()
 }
 
+/*路由*/
+
 func webHelloWorld() {
 	//於根目錄 / 登記handler處理器
 	//當網站發出request時，app會使用handler所作的內容來回應response
@@ -22,14 +24,6 @@ func webHelloWorld() {
 	//將傳入的路徑指向相對應的處理器，也就是整個網頁程式的路由 (router)
 	//在本例中我們傳入 nil，代表使用內建的 DefaultServeMux
 	http.ListenAndServe(":8080", nil)
-}
-
-func handler(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "Hello world")
-}
-
-func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
-	fmt.Fprintf(writer, "Hello world")
 }
 
 func routeTest() {
@@ -51,6 +45,10 @@ func routeTest() {
 func routeTest2() {
 	mux := httprouter.New()
 	mux.GET("/hello/:name", handler2)
+	// Custom 404 page
+	mux.NotFound = http.HandlerFunc(notFound)
+	// Custom 500 page
+	mux.PanicHandler = errorHandler
 
 	//server物件
 	server := http.Server{
@@ -59,4 +57,24 @@ func routeTest2() {
 	}
 	//Run the server
 	server.ListenAndServe()
+}
+
+/*handler*/
+
+func handler(writer http.ResponseWriter, request *http.Request) {
+	fmt.Fprintf(writer, "Hello world")
+}
+
+func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
+	fmt.Fprintf(writer, "Hello world")
+}
+
+func notFound(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	fmt.Fprintln(w, "Page Not Found")
+}
+
+func errorHandler(w http.ResponseWriter, r *http.Request, p interface{}) {
+	w.WriteHeader(http.StatusInternalServerError)
+	fmt.Fprintln(w, "Internal Server Error")
 }
