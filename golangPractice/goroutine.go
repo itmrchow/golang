@@ -98,18 +98,50 @@ func pong(pings <-chan string, pongs chan<- string) {
 }
 
 var m *sync.Mutex
+var rwm *sync.RWMutex
+var val = 0
 
 func mutexTest() {
 	m = new(sync.Mutex)
-	go read(1)
-	go read(2)
+	go mutexRead(1)
+	go mutexRead(2)
 	time.Sleep(time.Second) // 让goroutine有足够的时间执行完
 }
 
-func read(i int) {
+func mutexRead(i int) {
 	fmt.Println(i, "begin lock")
 	m.Lock()
 	fmt.Println(i, "in lock")
 	m.Unlock()
 	fmt.Println(i, "unlock")
+}
+
+func rwMutexTest() {
+	rwm = new(sync.RWMutex)
+	go rwMutexRead(1)
+	go rwMutexWrite(2)
+	go rwMutexRead(3)
+	time.Sleep(5 * time.Second)
+}
+
+func rwMutexRead(i int) {
+	fmt.Println(i, "begin read")
+	rwm.RLock()
+
+	time.Sleep(1 * time.Second)
+	fmt.Println(i, "val: ", val)
+	time.Sleep(1 * time.Second)
+
+	rwm.RUnlock()
+	fmt.Println(i, "end read")
+}
+
+func rwMutexWrite(i int) {
+	fmt.Println(i, "begin write")
+	rwm.Lock()
+	val = 10
+	fmt.Println(i, "val: ", val)
+	time.Sleep(1 * time.Second)
+	m.Unlock()
+	fmt.Println(i, "end write")
 }
