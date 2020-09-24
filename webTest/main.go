@@ -2,13 +2,16 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/urfave/negroni"
 )
 
 func main() {
-	routeTest2()
+	routeTest3()
 }
 
 /*路由*/
@@ -59,6 +62,49 @@ func routeTest2() {
 	server.ListenAndServe()
 }
 
+//加入negroni來紀錄系統
+func routeTest3() {
+	host := "127.0.0.1"
+	port := "8080"
+
+	args := os.Args[1:]
+
+	for {
+		if len(args) < 2 {
+			break
+		} else if args[0] == "-h" || args[0] == "--host" {
+			host = args[1]
+			args = args[2:]
+		} else if args[0] == "-p" || args[0] == "--port" {
+			port = args[1]
+			args = args[2:]
+		} else {
+			log.Fatalln(fmt.Sprintf("Unknown parameter: %s", args[0]))
+		}
+	}
+
+	mux := httprouter.New()
+	mux.GET("/", index)
+	// Custom 404 page
+	mux.NotFound = http.HandlerFunc(notFound)
+	// Custom 500 page
+	mux.PanicHandler = errorHandler
+
+	//set the logger of the server
+	negroni := negroni.Classic()
+	negroni.UseHandler(mux)
+
+	//set the parameters for a http server
+	server := http.Server{
+		Addr:    fmt.Sprintf("%s:%s", host, port),
+		Handler: negroni,
+	}
+
+	//run
+	log.Println(fmt.Sprintf("Run the web server at %s:%s", host, port))
+	log.Fatal(server.ListenAndServe())
+}
+
 /*handler*/
 
 func handler(writer http.ResponseWriter, request *http.Request) {
@@ -67,6 +113,10 @@ func handler(writer http.ResponseWriter, request *http.Request) {
 
 func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	fmt.Fprintf(writer, "Hello world")
+}
+
+func index(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
+	fmt.Fprintf(writer, "Hello world Index")
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
