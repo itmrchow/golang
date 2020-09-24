@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	webHelloWorld()
+	routeTest()
 }
 
 func webHelloWorld() {
@@ -24,4 +24,19 @@ func webHelloWorld() {
 
 func handler(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(writer, "Hello world")
+}
+
+func routeTest() {
+	//mux獨立出來
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", handler)
+
+	//server物件
+	server := http.Server{
+		Addr:    "0.0.0.0:8080",
+		Handler: mux,
+	}
+
+	server.ListenAndServe()
+
 }
