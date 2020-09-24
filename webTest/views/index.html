@@ -1,25 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ .Title }}</title>
-</head>
-<body>
-    {{ if .Name }}
-    <p>Hello {{.Name}}</p>
-    {{ end}}
-
-    <p>Name：</p>
-    <ul>
-        {{range .Names}}
-        <li>{{.}}</li>
-        {{end}}
-    </ul>
-
-    <p>框架：</p>
-    <ul>
-        {{range $key,$value := .Frameworks}}
-        <li>{{$key}}:{{$value}}</li>
-        {{end}}
-    </ul>
-</body>
-</html>
+{{ block "content" . }}
+<p>{{.Title}}</p>
+<ul>
+    {{range .Names}}
+         <li>{{.}}</li>
+    {{end}}
+</ul>
+{{end}}
