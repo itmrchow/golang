@@ -140,8 +140,26 @@ func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Pa
 }
 
 func index(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
-	t := template.Must(template.ParseFiles("views/index.html"))
-	t.Execute(writer, "Hello, Template")
+	tmpl := template.Must(template.ParseFiles("views/index.html"))
+	responeVal := struct {
+		Title      string
+		Name       string
+		Names      []string
+		Frameworks map[string]string
+	}{
+		"My Awesome Site",
+		"Jeff",
+		[]string{"Tony", "James", "Amy"},
+		map[string]string{
+			"Django":  "Python",
+			"Rails":   "Ruby",
+			"Laravel": "PHP",
+			"Spring":  "Java",
+			"Gin":     "Golang",
+		},
+	}
+
+	tmpl.Execute(writer, responeVal)
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
