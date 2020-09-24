@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"text/template"
 
 	negronilogrus "github.com/meatballhat/negroni-logrus"
 
@@ -139,7 +140,8 @@ func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Pa
 }
 
 func index(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
-	fmt.Fprintf(writer, "Hello world Index")
+	t := template.Must(template.ParseFiles("views/index.html"))
+	t.Execute(writer, "Hello, Template")
 }
 
 func notFound(w http.ResponseWriter, r *http.Request) {
