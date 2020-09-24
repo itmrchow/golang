@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func main() {
-	routeTest()
+	routeTest2()
 }
 
 func webHelloWorld() {
@@ -26,6 +28,10 @@ func handler(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(writer, "Hello world")
 }
 
+func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
+	fmt.Fprintf(writer, "Hello world")
+}
+
 func routeTest() {
 	//mux獨立出來
 	mux := http.NewServeMux()
@@ -39,4 +45,18 @@ func routeTest() {
 
 	server.ListenAndServe()
 
+}
+
+//動態路由
+func routeTest2() {
+	mux := httprouter.New()
+	mux.GET("/hello/:name", handler2)
+
+	//server物件
+	server := http.Server{
+		Addr:    "127.0.0.1:8080",
+		Handler: mux,
+	}
+	//Run the server
+	server.ListenAndServe()
 }
