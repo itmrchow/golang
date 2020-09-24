@@ -91,6 +91,12 @@ func routeTest3() {
 	}
 
 	mux := httprouter.New()
+	//加載靜態資源 *filepath 的部分會由實際的資料夾和檔案名稱來取代
+	// Listen to CSS assets
+	mux.ServeFiles("/css/*filepath", http.Dir("public/css"))
+	// Listen to JavaScript assets
+	mux.ServeFiles("/js/*filepath", http.Dir("public/js"))
+
 	mux.GET("/", index)
 	// Custom 404 page
 	mux.NotFound = http.HandlerFunc(notFound)
@@ -140,8 +146,11 @@ func handler2(writer http.ResponseWriter, request *http.Request, p httprouter.Pa
 }
 
 func index(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
+	//加載模板
 	//tmpl := template.Must(template.ParseFiles("views/index.html"))
 	tmpl := template.Must(template.ParseFiles("views/layout.html", "views/index.html", "views/head.html"))
+
+	//資料
 	data := struct {
 		Title string
 		Names []string
@@ -150,6 +159,7 @@ func index(writer http.ResponseWriter, request *http.Request, p httprouter.Param
 		[]string{"Tony", "James", "Amy"},
 	}
 
+	//啟動
 	err := tmpl.ExecuteTemplate(writer, "layout", data)
 	if err != nil {
 		http.Error(writer, err.Error(), 500)
